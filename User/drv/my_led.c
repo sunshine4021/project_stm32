@@ -17,6 +17,7 @@
 /******************************************************/
 
 #include "my_led.h"   
+#include "my_mcu_gpio.h"
 
 /******************************************************/
 /*******************  全局变量定义 *********************/
@@ -40,36 +41,11 @@ static void  my_led_gpio_config ( void );
 /*******************  外部函数引用 *********************/
 /******************************************************/
 
-
- /**
-  * @brief  配置 LED 的 GPIO 功能
-  * @param  无
-  * @retval 无
-  */
-static void my_led_gpio_config ( void )
-{		
-	/*定义一个GPIO_InitTypeDef类型的结构体*/
-	GPIO_InitTypeDef GPIO_InitStructure;
-
-
-	/* 配置 LED1 引脚 */
-	RCC_APB2PeriphClockCmd ( palLED1_GPIO_CLK, ENABLE ); 															   
-	GPIO_InitStructure.GPIO_Pin = palLED1_GPIO_PIN;	
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;   
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; 
-	GPIO_Init ( palLED1_GPIO_PORT, & GPIO_InitStructure );	
-
-	/* 配置 LED2 引脚 */
-	RCC_APB2PeriphClockCmd ( palLED2_GPIO_CLK, ENABLE ); 															   
-	GPIO_InitStructure.GPIO_Pin = palLED2_GPIO_PIN;	
-	GPIO_Init ( palLED2_GPIO_PORT, & GPIO_InitStructure );	
-
-	/* 配置 LED3 引脚 */
-	RCC_APB2PeriphClockCmd ( palLED3_GPIO_CLK, ENABLE ); 															   
-	GPIO_InitStructure.GPIO_Pin = palLED3_GPIO_PIN;	
-	GPIO_Init ( palLED3_GPIO_PORT, & GPIO_InitStructure );		
-	  		
-}
+ const static GPIO_LIST my_led_gpio_list[3] = {
+													 {palLED1_GPIO_PORT, palLED1_GPIO_PIN, "LED1"},
+													 {palLED2_GPIO_PORT, palLED2_GPIO_PIN, "LED2"},
+													 {palLED3_GPIO_PORT, palLED3_GPIO_PIN, "LED3"},
+											  };
 
 
  /**
@@ -79,7 +55,10 @@ static void my_led_gpio_config ( void )
   */
 void my_led_init ( void )
 {
-  my_led_gpio_config ();
+
+	MCU_GPIO_Init(my_led_gpio_list.gpio_group[0],my_led_gpio_list.gpio_pin[0],GPIO_Mode_Out_PP,GPIO_Speed_50MHz,my_led_gpio_list[0].gpio_name);
+	MCU_GPIO_Init(my_led_gpio_list.gpio_group[1],my_led_gpio_list.gpio_pin[1],GPIO_Mode_Out_PP,GPIO_Speed_50MHz,my_led_gpio_list[1].gpio_name);
+	MCU_GPIO_Init(my_led_gpio_list.gpio_group[2],my_led_gpio_list.gpio_pin[2],GPIO_Mode_Out_PP,GPIO_Speed_50MHz,my_led_gpio_list[2].gpio_name);
 	
 	palLED1_OFF();
 	palLED2_OFF();

@@ -40,16 +40,18 @@
 /******************************************************/
 typedef enum
 {
-		LOG_DEBUG = 1,
-		LOG_WARN,
-	  LOG_ERROR,
-		LOG_FATAL
+	LOG_DEBUG = 1,
+	LOG_WARN,
+  LOG_ERROR,
+	LOG_FATAL
 }my_log_level_enmu;
 
 static  my_log_level_enmu my_log_level = LOG_DEBUG;
 
-#define LOG(level,prefix,format,...) do{ if(my_log_level <= level) my_pre_log(prefix,"%s:%d(%s)\""format"\"\n",__FILE__,__LINE__,__FUNCTION__,##__VA_ARGS__);}while(0)
+//#define LOG(level,prefix,format,...) do{ if(my_log_level <= level) my_pre_log(prefix,"%s:%d(%s)\""format"\"\n",__FILE__,__LINE__,__FUNCTION__,##__VA_ARGS__);}while(0)
 
+//使用不带文件名的，简洁一点
+#define LOG(level,prefix,format,...) do{ if(my_log_level <= level) my_pre_log(prefix,"%s(): "format"\n",__FUNCTION__,##__VA_ARGS__);}while(0)
 
 #define LOG_DEBUG(fmt,...) LOG(LOG_DEBUG,"[DEBUG]",fmt,##__VA_ARGS__)
 #define LOG_WARN(fmt,...)  LOG(LOG_WARN, "[WARN]", fmt,##__VA_ARGS__)
@@ -63,8 +65,6 @@ static  my_log_level_enmu my_log_level = LOG_DEBUG;
 /******************************************************/
 /*******************  本地函数声明 *********************/
 /******************************************************/
-
-void my_log_send_to_uart(uint8_t *data , uint16_t data_len);
 
 /******************************************************/
 /*******************  外部函数引用 *********************/

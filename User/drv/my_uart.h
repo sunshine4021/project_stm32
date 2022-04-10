@@ -146,12 +146,21 @@
 //#define  pal_USART_IRQHandler         UART5_IRQHandler
 
 
-void USART_Config(void);
-void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);
-void Usart_SendString( USART_TypeDef * pUSARTx, char *str);
-void Usart_SendHalfWord( USART_TypeDef * pUSARTx, uint16_t ch);
 
-
+/******************************************************************************
+ * Function  -  my_drv_uart_send_mastter
+ * Purpose   -  串口中断收到数据要发送给master
+ * Params 
+ *   @uint8_t *data
+ *   @uint16_t data_len
+ * Return
+ *   @  
+ * Limitation -   
+ * ----------------------------------------
+ * Modification history
+ * luyangguang create  @2022-04-10
+ ******************************************************************************/
+void my_drv_uart_send_mastter(uint8_t *data,uint16_t data_len);
 
 
 

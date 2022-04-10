@@ -58,12 +58,13 @@
 *******************************************************/
 int main ( void )
 {	
-
+	//drv任务，专门管理外设的
 	xTaskCreate( my_drv_task_init, "MY Task DRV", 512, NULL, 1, NULL );
-	
+
+	//主逻辑任务，专门处理应用逻辑的
 	xTaskCreate( my_master_task_init, "MY Task MASTER", 512, NULL, 1, NULL );
 	
-  vTaskStartScheduler();
+    vTaskStartScheduler();
 	
 	return 0;
 }

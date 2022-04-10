@@ -36,10 +36,9 @@
 
 typedef enum 
 {
-    MY_MASTER_UART_DATA_RECV = 1,
-
-	
-		MY_DRV_UART_DATA_SEND,
+    MY_MASTER_UART_DATA_RECV = 1,			//master收到串口数据
+	MY_DRV_UART_DATA_SEND,					//drv需要发送数据出去
+	MY_DRV_LED_CONTROL,
 	  
 }my_message_id_enmu;
 
@@ -51,7 +50,32 @@ typedef enum
 /*******************  本地函数声明 *********************/
 /******************************************************/
 
+/******************************************************************************
+ * Function  -  my_master_task_init
+ * Purpose   -  master主任务初始化
+ * Params 
+ *   @void * pvParameters
+ * Return
+ *   @  
+ * Limitation -   
+ * ----------------------------------------
+ * Modification history
+ * luyangguang create  @2022-04-10
+ ******************************************************************************/
 void my_master_task_init( void * pvParameters );
+
+/******************************************************************************
+ * Function  -  my_master_task_get_queuue_handle
+ * Purpose   -  获取master句柄，用来发消息
+ * Params 
+ *   @ void
+ * Return
+ *   @   
+ * Limitation -   
+ * ----------------------------------------
+ * Modification history
+ * luyangguang create  @2022-04-10
+ ******************************************************************************/
 QueueHandle_t my_master_task_get_queuue_handle(void);
 
 /******************************************************/

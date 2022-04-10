@@ -22,7 +22,7 @@
 #include "my_com.h" 
 #include "my_master_task.h"
 #include "my_drv_main.h"
-#include "my_uart.h"
+#include "my_usart.h"
 
 /******************************************************/
 /*******************  全局变量定义 *********************/
@@ -55,39 +55,35 @@ static QueueHandle_t my_drv_queue_handle;
 * 版本 : 1.0
 * 历史版本 : 无
 *******************************************************/
-void my_drv_task_main(void)
+static void my_drv_task_main(void)
 {
-		my_task_message_struct drv_message = {0};
-		
-		my_led_init();
-		
-		USART_Config();
+	my_task_message_struct drv_message = {0};
 	
-		while(xQueueReceive(my_drv_queue_handle,&drv_message,portMAX_DELAY))
-		{
-				switch(drv_message.mes_id)
-				{
-					case MY_DRV_UART_DATA_SEND:
-								{
-										MY_DRV_UART_DATA_SEND_handle(&drv_message);	
-								}
-								vPortFree(drv_message.pvdata);
-								break;
-								
-					case 8:
-								{
-										palLED1_ON ();			  // 亮
-										vTaskDelay( 5000 );
-										palLED1_OFF ();		  // 灭		
-										vTaskDelay( 5000 );										
-								}
-								break;								
-					default:
-							  break;
-												
-				}
+	//初始化串口1，用来做LOG输出
+	Usart1_Init(115200);
 
+	while(xQueueReceive(my_drv_queue_handle,&drv_message,portMAX_DELAY))
+	{
+		switch(drv_message.mes_id)
+		{
+			case MY_DRV_UART_DATA_SEND:
+				{
+					MY_DRV_UART_DATA_SEND_handle(&drv_message);	
+				}
+				vPortFree(drv_message.pvdata);
+				break;
+						
+			case MY_DRV_LED_CONTROL:
+				{
+				
+				}
+				break;								
+			default:
+				break;
+										
 		}
+
+	}
 			
 	
 }
@@ -103,7 +99,7 @@ void my_drv_task_main(void)
 *******************************************************/
 QueueHandle_t my_drv_task_get_queuue_handle(void)
 {
-		return my_drv_queue_handle;
+	return my_drv_queue_handle;
 }
 
 
@@ -118,8 +114,8 @@ QueueHandle_t my_drv_task_get_queuue_handle(void)
 *******************************************************/
 void my_drv_task_init( void * pvParameters )
 {	
-		my_drv_queue_handle = xQueueCreate(50,sizeof(my_task_message_struct));
-		my_drv_task_main();
+	my_drv_queue_handle = xQueueCreate(50,sizeof(my_task_message_struct));
+	my_drv_task_main();
 		
 }
 

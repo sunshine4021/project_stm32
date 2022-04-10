@@ -41,10 +41,21 @@
 /*******************  外部函数引用 *********************/
 /******************************************************/
 
-
+/******************************************************************************
+ * Function  -  MY_DRV_UART_DATA_SEND_handle
+ * Purpose   -  收到串口要发送的消息，进行数据发送
+ * Params 
+ *   @my_task_message_struct *message
+ * Return
+ *   @  
+ * Limitation -   
+ * ----------------------------------------
+ * Modification history
+ * luyangguang create  @2022-04-10
+ ******************************************************************************/
 void MY_DRV_UART_DATA_SEND_handle(my_task_message_struct *message)
 {
-		 Usart_SendString(pal_USARTx,message->pvdata);		
+	 Usart_SendString(USART1,message->pvdata,message->data_len);		
 }
 
 

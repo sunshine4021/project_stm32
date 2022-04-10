@@ -30,17 +30,14 @@
 /*******************  数据类型定义 *********************/
 /******************************************************/
 
-#define             palLED1_GPIO_APBxClock_FUN              RCC_APB2PeriphClockCmd
 #define             palLED1_GPIO_CLK                        RCC_APB2Periph_GPIOB
 #define             palLED1_GPIO_PORT                       GPIOB
 #define             palLED1_GPIO_PIN                        GPIO_Pin_5
 
-#define             palLED2_GPIO_APBxClock_FUN              RCC_APB2PeriphClockCmd
 #define             palLED2_GPIO_CLK                        RCC_APB2Periph_GPIOB
 #define             palLED2_GPIO_PORT                       GPIOB
 #define             palLED2_GPIO_PIN                        GPIO_Pin_0
 
-#define             palLED3_GPIO_APBxClock_FUN              RCC_APB2PeriphClockCmd
 #define             palLED3_GPIO_CLK                        RCC_APB2Periph_GPIOB
 #define             palLED3_GPIO_PORT                       GPIOB
 #define             palLED3_GPIO_PIN                        GPIO_Pin_1

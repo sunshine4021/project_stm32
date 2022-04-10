@@ -40,6 +40,18 @@
 /*******************  本地函数声明 *********************/
 /******************************************************/
 
+/******************************************************************************
+ * Function  -  MY_MASTER_UART_DATA_RECV_handle
+ * Purpose   -  master收到底层的uart数据处理函数
+ * Params 
+ *   @my_task_message_struct *message
+ * Return
+ *   @  
+ * Limitation -   
+ * ----------------------------------------
+ * Modification history
+ * luyangguang create  @2022-04-10
+ ******************************************************************************/
 void MY_MASTER_UART_DATA_RECV_handle(my_task_message_struct *message);
 
 /******************************************************/
